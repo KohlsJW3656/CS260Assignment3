@@ -1,4 +1,8 @@
-public abstract class HumResource {
+public class HumResource {
+
+    public HumResource() {
+
+    }
 
     public void update() {
 
