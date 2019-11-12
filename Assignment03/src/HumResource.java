@@ -1,18 +1,5 @@
-public class HumResource {
+public abstract class HumResource {
 
-    public HumResource() {
+    DataAccessObject dao = new DataAccessObject();
 
-    }
-
-    public void update() {
-
-    }
-
-    public void delete() {
-
-    }
-
-    public void insert() {
-
-    }
 }
