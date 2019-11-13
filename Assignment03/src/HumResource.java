@@ -10,7 +10,7 @@ public abstract class HumResource {
     String where = "WHERE ";
     String values = "VALUES (";
     String hridEquals = "hrid = ";
-    String comma = ",";
+    String comma = ", ";
     int hrid;
 
 
