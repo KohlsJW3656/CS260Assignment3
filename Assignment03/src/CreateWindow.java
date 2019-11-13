@@ -68,6 +68,17 @@ public class CreateWindow {
 
                 panel.add(input, BorderLayout.CENTER);
 
+                submit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent ae) {
+                        int numOf10Bottles = Integer.parseInt(bottles.getText());
+                        int numOfHalfLitter = Integer.parseInt(halfLiterBottles.getText());
+                        int numOf5Gal = Integer.parseInt(jugs.getText());
+
+                        Water water = new Water();
+                        water.insert(numOf10Bottles, numOfHalfLitter, numOf5Gal);
+                    }
+                });
+
                 // Water water = new Water();
                 //water.insert();
             }
@@ -76,21 +87,7 @@ public class CreateWindow {
                 water.update();
             }
             else {
-                JPanel input = new JPanel();
-                JTextField hrid = new JTextField("Human Resource ID");
-                JButton submitWater = new JButton("Submit");
-                input.add(hrid);
-                input.add(submitWater);
-
-                submitWater.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        
-                    }
-                });
-                panel.add(input, BorderLayout.CENTER);
-
-                Water water = new Water(Integer.parseInt(hrid));
+                Water water = new Water();
                 water.delete();
             }
         }
@@ -122,12 +119,12 @@ public class CreateWindow {
                 //food.insert();
             }
             else if(operation.equals("Update")){
-                Food food = new Food();
-                food.update();
+                //Food food = new Food();
+                //food.update();
             }
             else {
-                Food food = new Food();
-                food.delete();
+                //Food food = new Food();
+                //food.delete();
             }
         }
 
