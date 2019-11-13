@@ -72,7 +72,21 @@ public class CreateWindow {
                 water.update();
             }
             else {
-                Water water = new Water();
+                JPanel input = new JPanel();
+                JTextField hrid = new JTextField("Human Resource ID");
+                JButton submitWater = new JButton("Submit");
+                input.add(hrid);
+                input.add(submitWater);
+
+                submitWater.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        
+                    }
+                });
+                panel.add(input, BorderLayout.CENTER);
+
+                Water water = new Water(Integer.parseInt(hrid));
                 water.delete();
             }
         }

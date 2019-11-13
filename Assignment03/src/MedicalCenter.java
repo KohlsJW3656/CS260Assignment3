@@ -17,7 +17,7 @@ public class MedicalCenter extends HumResource {
     public void delete() {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(delete + everything + from + tableName);
+        dao.executeSQLQuery("" + delete + everything + from + tableName + "");
         dao.commit();
         dao.disconnect();
     }
