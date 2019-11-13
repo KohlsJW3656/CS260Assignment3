@@ -5,11 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CreateWindow {
-    public static void main(String args[]){
-        homeWindow();
-    }
 
-    private static void homeWindow(){
+    public void homeWindow(){
         JFrame frame = new JFrame("Humanitarian Resource Data");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300,300);
@@ -45,21 +42,28 @@ public class CreateWindow {
     private static void newWindow(String operation, String resource){
         JFrame newFrame = new JFrame("New Window");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        newFrame.setSize(300,300);
-        JPanel panel = new JPanel();
-        panel.setLayout(new BorderLayout());
+        newFrame.setSize(600,200);
+        JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("Please enter the information");
         JButton submit = new JButton("Submit");
 
         if(resource.equals("Water")) {
             if(operation.equals("Insert")){
-                JPanel input = new JPanel();
-                JTextField bottles = new JTextField("Number of 10oz bottles");
-                JTextField halfLiterBottles = new JTextField("Number of half-liter bottles");
-                JTextField jugs = new JTextField("Number of 5gal jugs");
+                JPanel input = new JPanel(new GridLayout(3,2));
+                JLabel label1 = new JLabel("Number of 10oz bottles:");
+                JLabel label2 = new JLabel("Number of half-liter bottles:");
+                JLabel label3 = new JLabel("Number of 5gal jugs:");
+                JTextField bottles = new JTextField();
+                JTextField halfLiterBottles = new JTextField();
+                JTextField jugs = new JTextField();
 
+                input.add(label1);
                 input.add(bottles);
+
+                input.add(label2);
                 input.add(halfLiterBottles);
+
+                input.add(label3);
                 input.add(jugs);
 
                 panel.add(input, BorderLayout.CENTER);
@@ -79,13 +83,22 @@ public class CreateWindow {
 
         else if(resource.equals("Food")) {
             if(operation.equals("Insert")){
-                JPanel input = new JPanel();
-                JTextField type = new JTextField("Food type");
-                JTextField meals = new JTextField("Number of meals available");
-                JTextField desc = new JTextField("Description");
+                JPanel input = new JPanel(new GridLayout(3,2));
+                JLabel label1 = new JLabel("Food type:");
+                JLabel label2 = new JLabel("Number of meals available:");
+                JLabel label3 = new JLabel("Description");
 
+                JTextField type = new JTextField();
+                JTextField meals = new JTextField();
+                JTextField desc = new JTextField();
+
+                input.add(label1);
                 input.add(type);
+
+                input.add(label2);
                 input.add(meals);
+
+                input.add(label3);
                 input.add(desc);
 
                 panel.add(input, BorderLayout.CENTER);
@@ -106,15 +119,27 @@ public class CreateWindow {
 
         else {
             if(operation.equals("Insert")){
-                JPanel input = new JPanel();
-                JTextField beds = new JTextField("Number of beds");
-                JTextField roomCap = new JTextField("Emergency room capacity");
-                JTextField doctors = new JTextField("Number of doctors");
-                JTextField nurses = new JTextField("Number of nurses");
+                JPanel input = new JPanel(new GridLayout(4,2));
+                JLabel label1 = new JLabel("Number of beds");
+                JLabel label2 = new JLabel("Emergency room capacity");
+                JLabel label3 = new JLabel("Number of doctors");
+                JLabel label4 = new JLabel("Number of nurses");
 
+                JTextField beds = new JTextField("", 5);
+                JTextField roomCap = new JTextField();
+                JTextField doctors = new JTextField();
+                JTextField nurses = new JTextField();
+
+                input.add(label1);
                 input.add(beds);
+
+                input.add(label2);
                 input.add(roomCap);
+
+                input.add(label3);
                 input.add(doctors);
+
+                input.add(label4);
                 input.add(nurses);
 
                 panel.add(input, BorderLayout.CENTER);
