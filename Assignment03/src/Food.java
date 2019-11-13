@@ -1,11 +1,10 @@
-import java.sql.ResultSet;
 
 public class Food extends HumResource {
 
-    private String tableName = "Food ";
+    private String tableName = "FOOD ";
 
-    public Food() {
-
+    public Food(int hrid) {
+        this.hrid = hrid;
     }
 
     public void update() {
@@ -19,9 +18,7 @@ public class Food extends HumResource {
     public void delete() {
         dao.connect();
         dao.setAutoCommit(false);
-        //ResultSet rs = dao.executeSQLNonQuery("");
-
-        dao.executeSQLQuery(delete + everything + from + tableName);
+        dao.executeSQLQuery(delete + from + tableName + where + "hrid " + "= " + hrid);
         dao.commit();
         dao.disconnect();
     }
