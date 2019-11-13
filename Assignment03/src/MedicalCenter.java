@@ -2,9 +2,6 @@ public class MedicalCenter extends HumResource {
 
     private String tableName = "MedicalCenter ";
 
-    public MedicalCenter() {
-
-    }
 
     public void update() {
         dao.connect();
@@ -15,17 +12,13 @@ public class MedicalCenter extends HumResource {
     }
 
     public void delete() {
-        dao.connect();
-        dao.setAutoCommit(false);
-        dao.executeSQLQuery("" + delete + everything + from + tableName + "");
-        dao.commit();
-        dao.disconnect();
+        delete(tableName);
     }
 
-    public void insert() {
+    public void insert(int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + "" + into + tableName + "");
+        dao.executeSQLQuery(insert + tableName + values + createHRID() + " " + beds + roomCap + doctors + nurses);
         dao.commit();
         dao.disconnect();
     }

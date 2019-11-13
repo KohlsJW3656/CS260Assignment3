@@ -3,10 +3,6 @@ public class Food extends HumResource {
 
     private String tableName = "FOOD ";
 
-    public Food(int hrid) {
-        this.hrid = hrid;
-    }
-
     public void update() {
         dao.connect();
         dao.setAutoCommit(false);
@@ -16,17 +12,13 @@ public class Food extends HumResource {
     }
 
     public void delete() {
-        dao.connect();
-        dao.setAutoCommit(false);
-        dao.executeSQLQuery(delete + from + tableName + where + "hrid " + "= " + hrid);
-        dao.commit();
-        dao.disconnect();
+        delete(tableName);
     }
 
-    public void insert() {
+    public void insert(String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + "" + into + tableName + "");
+        dao.executeSQLQuery(insert + tableName + values + createHRID() + " \'" + type + "\'" + meals + "\'" + desc + "\')");
         dao.commit();
         dao.disconnect();
     }

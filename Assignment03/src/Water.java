@@ -2,10 +2,6 @@ public class Water extends HumResource {
 
     private String tableName = "Water ";
 
-    public Water() {
-
-    }
-
     public void update() {
         dao.connect();
         dao.setAutoCommit(false);
@@ -15,17 +11,13 @@ public class Water extends HumResource {
     }
 
     public void delete() {
-        dao.connect();
-        dao.setAutoCommit(false);
-        dao.executeSQLQuery(delete + everything + from + tableName);
-        dao.commit();
-        dao.disconnect();
+        delete(tableName);
     }
 
-    public void insert() {
+    public void insert(int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + "" + into + tableName + "");
+        dao.executeSQLQuery(insert + tableName + values + createHRID() + " " + numOf10Bottles + numOfHalfLitter + numOf5Gal + ")");
         dao.commit();
         dao.disconnect();
     }
