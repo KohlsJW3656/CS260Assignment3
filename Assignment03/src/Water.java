@@ -17,7 +17,7 @@ public class Water extends HumResource {
     public void insert(int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + tableName + values + createHRID() + " " + numOf10Bottles + numOfHalfLitter + numOf5Gal + ")");
+        dao.executeSQLQuery(insert + tableName + values + createHRID() + comma + numOf10Bottles + comma + numOfHalfLitter + comma + numOf5Gal + ")");
         dao.commit();
         dao.disconnect();
     }
