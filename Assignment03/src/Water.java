@@ -8,9 +8,9 @@ public class Water extends HumResource {
     public void update(int hrid, int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(update + tableName + set + this.numOf10Bottles + equals + numOf10Bottles + comma +
+        dao.executeSQLNonQuery(update + tableName + set + this.numOf10Bottles + equals + numOf10Bottles + comma +
                 this.numOfHalfLitter + equals + numOfHalfLitter + comma + this.numOf5Gal + equals + numOf5Gal + space +
-                where + quotation + this.hrid + quotation + space + equals + hrid);
+                where + this.hrid + space + equals + hrid);
         dao.commit();
         dao.disconnect();
     }
@@ -22,7 +22,7 @@ public class Water extends HumResource {
     public void insert(int hrid, int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + tableName + values + hrid + comma + numOf10Bottles + comma +
+        dao.executeSQLNonQuery(insert + tableName + values + hrid + comma + numOf10Bottles + comma +
                 numOfHalfLitter + comma + numOf5Gal + endParenthesis);
         dao.commit();
         dao.disconnect();

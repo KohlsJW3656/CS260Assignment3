@@ -19,7 +19,7 @@ abstract class HumResource {
     void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(delete + tableName + where + this.hrid + equals + hrid);
+        dao.executeSQLNonQuery(delete + tableName + where + this.hrid + equals + hrid);
         dao.commit();
         dao.disconnect();
     }
