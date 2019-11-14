@@ -18,7 +18,7 @@ public class MedicalCenter extends HumResource {
     public void insert(int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + tableName + values + createHRID() + " " + beds + roomCap + doctors + nurses);
+        dao.executeSQLQuery(insert + tableName + values + createHRID() + comma + beds + comma + roomCap + comma + doctors + comma + nurses);
         dao.commit();
         dao.disconnect();
     }
