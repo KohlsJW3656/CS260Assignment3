@@ -16,7 +16,7 @@ public class Water extends HumResource {
     }
 
     public void delete(int hrid) {
-        delete(tableName,hrid);
+        delete(tableName, hrid);
     }
 
     public void insert(int hrid, int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {

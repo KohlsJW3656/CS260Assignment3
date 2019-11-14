@@ -39,7 +39,7 @@ public class DataAccessObject {
 	}	// end - method connect
 	
 	// --- executeSQLQuery() - execute an SQL query
-	public void executeSQLQuery (String sqlQuery) {
+	public ResultSet executeSQLQuery (String sqlQuery) {
 		// --- 3a) execute SQL query
 		Statement stmt = null;		// SQL statement object
 		daoRset = null;				// initialize result set
@@ -54,6 +54,7 @@ public class DataAccessObject {
 			// rollback
 			rollback();
 		}
+		return null;
 	}	// end - method executeSQLQuery
 	
 	// --- executeSQLNonQuery() - execute an SQL command that is not a query
