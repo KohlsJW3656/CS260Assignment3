@@ -10,9 +10,9 @@ public class MedicalCenter extends HumResource {
     public void update(int hrid, int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery(update + tableName + set + this.beds + equals + beds + comma + this.roomCap + equals +
-                roomCap + comma + this.doctors + equals + doctors + comma + this.nurses + equals + nurses + space +
-                where + this.hrid + equals + hrid);
+        dao.executeSQLNonQuery(update + tableName + set + this.beds + equals + beds + comma + this.roomCap
+                + equals + roomCap + comma + this.doctors + equals + doctors + comma + this.nurses + equals + nurses +
+                space + where + this.hrid + equals + hrid);
         dao.commit();
         dao.disconnect();
     }
@@ -24,7 +24,8 @@ public class MedicalCenter extends HumResource {
     public void insert(int hrid, int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery(insert + tableName + values + hrid + comma + beds + comma + roomCap + comma + doctors + comma + nurses + ")");
+        dao.executeSQLNonQuery(insert + tableName + values + hrid + comma + beds + comma + roomCap + comma
+                + doctors + comma + nurses + ")");
         dao.commit();
         dao.disconnect();
     }

@@ -9,9 +9,9 @@ public class Food extends HumResource {
     public void update(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery(update + tableName + set + this.type + equals + quotation + type + quotation + comma +
-                this.meals + equals + meals + comma + this.desc + equals + quotation + desc + quotation + space +
-                where + this.hrid + space + equals + hrid);
+        dao.executeSQLNonQuery(update + tableName + set + this.type + equals + quotation + type + quotation
+                + comma + this.meals + equals + meals + comma + this.desc + equals + quotation + desc + quotation +
+                space + where + this.hrid + space + equals + hrid);
         dao.commit();
         dao.disconnect();
     }
