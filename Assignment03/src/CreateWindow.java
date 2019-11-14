@@ -78,9 +78,6 @@ public class CreateWindow {
                         water.insert(numOf10Bottles, numOfHalfLitter, numOf5Gal);
                     }
                 });
-
-                // Water water = new Water();
-                //water.insert();
             }
             else if(operation.equals("Update")){
                 Water water = new Water();
@@ -113,6 +110,17 @@ public class CreateWindow {
                 input.add(desc);
 
                 panel.add(input, BorderLayout.CENTER);
+
+                submit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent ae) {
+                        String typeOfFood = type.getText();
+                        int numOfMeals = Integer.parseInt(meals.getText());
+                        String description = desc.getText();
+
+                        Food food = new Food();
+                        food.insert(typeOfFood, numOfMeals, description);
+                    }
+                });
 
 
                 //Food food = new Food();
@@ -155,8 +163,17 @@ public class CreateWindow {
 
                 panel.add(input, BorderLayout.CENTER);
 
-                //MedicalCenter medicalCenter = new MedicalCenter();
-                //medicalCenter.insert();
+                submit.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent ae) {
+                        int numOfBeds = Integer.parseInt(beds.getText());
+                        int roomCapacity = Integer.parseInt(roomCap.getText());
+                        int numOfdoctors = Integer.parseInt(doctors.getText());
+                        int numOfNurses = Integer.parseInt(nurses.getText());
+
+                        MedicalCenter medicalCenter = new MedicalCenter();
+                        medicalCenter.insert(numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
+                    }
+                });
             }
             else if(operation.equals("Update")){
                 MedicalCenter medicalCenter = new MedicalCenter();
