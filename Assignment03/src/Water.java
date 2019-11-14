@@ -10,8 +10,8 @@ public class Water extends HumResource {
         dao.disconnect();
     }
 
-    public void delete() {
-        delete(tableName);
+    public void delete(int hrid) {
+        delete(tableName,hrid);
     }
 
     public void insert(int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {

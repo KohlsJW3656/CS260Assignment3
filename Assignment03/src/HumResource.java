@@ -11,10 +11,10 @@ public abstract class HumResource {
     String values = "VALUES (";
     String hridEquals = "hrid = ";
     String comma = ", ";
-    int hrid;
+    //int hrid;
 
 
-    public void delete(String tableName) {
+    public void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
         dao.executeSQLQuery(delete + from + tableName + where + hridEquals + hrid);

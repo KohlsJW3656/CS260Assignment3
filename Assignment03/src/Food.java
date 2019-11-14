@@ -11,8 +11,8 @@ public class Food extends HumResource {
         dao.disconnect();
     }
 
-    public void delete() {
-        delete(tableName);
+    public void delete(int hrid) {
+        delete(tableName, hrid);
     }
 
     public void insert(String type, int meals, String desc) {
