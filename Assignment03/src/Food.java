@@ -2,11 +2,16 @@
 public class Food extends HumResource {
 
     private String tableName = "FOOD ";
+    private String type = "FType ";
+    private String meals = "FMealsAvailable ";
+    private String desc = "FSpecificDesc ";
 
-    public void update() {
+    public void update(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(update + "" + from + tableName + "");
+        dao.executeSQLQuery(update + tableName + set + this.type + equals + quotation + type + quotation + comma +
+                this.meals + equals + meals + comma + this.desc + equals + quotation + desc + quotation + space +
+                where + quotation + this.hrid + quotation + space + equals + hrid);
         dao.commit();
         dao.disconnect();
     }
@@ -15,10 +20,11 @@ public class Food extends HumResource {
         delete(tableName, hrid);
     }
 
-    public void insert(String type, int meals, String desc) {
+    public void insert(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(insert + tableName + values + createHRID() + comma + "\'" + type + "\'" + comma + meals + comma + "\'" + desc + "\')");
+        dao.executeSQLQuery(insert + tableName + values + hrid + comma + quotation + type + quotation +
+                comma + meals + comma + quotation + desc + quotation + endParenthesis);
         dao.commit();
         dao.disconnect();
     }

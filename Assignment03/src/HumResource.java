@@ -1,28 +1,26 @@
 
-public abstract class HumResource {
+abstract class HumResource {
 
     DataAccessObject dao = new DataAccessObject();
 
     String insert = "INSERT INTO ";
-    String delete = "DELETE ";
+    String delete = "DELETE FROM ";
     String update = "UPDATE ";
-    String from = "FROM ";
+    String set = "SET ";
     String where = "WHERE ";
+    String equals = "= ";
     String values = "VALUES (";
-    String hridEquals = "hrid = ";
+    String hrid = "HRID ";
     String comma = ", ";
-    //int hrid;
+    String quotation = "\'";
+    String space = " ";
+    String endParenthesis = ")";
 
-
-    public void delete(String tableName, int hrid) {
+    void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLQuery(delete + from + tableName + where + hridEquals + hrid);
+        dao.executeSQLQuery(delete + tableName + where + this.hrid + equals + hrid);
         dao.commit();
         dao.disconnect();
-    }
-
-    int createHRID() {
-        return 1000;
     }
 }
