@@ -1,7 +1,7 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-abstract class HumResource {
+public class HumResource {
 
     private String tableName = "HumResource ";
     private String name = "HRName ";
