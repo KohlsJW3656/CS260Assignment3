@@ -1,6 +1,6 @@
 /*
  * Class DataAccessObject - class to hold all Oracle database references and methods
- * 
+ *
  * Created by Paul J. Wagner, 25 March 2019
  *
  */
@@ -12,14 +12,14 @@ public class DataAccessObject {
 	private Connection daoConn = null;			// JDBC connection
 	private ResultSet  daoRset = null;			// result set for queries
 	private int returnValue;					// return value for all other commands
-		
+
 	// --- connect() - connect to the Oracle database
 	public void connect() {
 		// --- set the username and password
 		String user = "KOHLSJW3656";
 		String pass = "78KRXHRP";
-		
-		// --- 1) get the Class object for the driver 
+
+		// --- 1) get the Class object for the driver
 		try {
 		   Class.forName ("oracle.jdbc.OracleDriver");
 		}
@@ -37,7 +37,7 @@ public class DataAccessObject {
 		   System.err.println(sqle.getMessage());
 		}
 	}	// end - method connect
-	
+
 	// --- executeSQLQuery() - execute an SQL query
 	public ResultSet executeSQLQuery (String sqlQuery) {
 		// --- 3a) execute SQL query
@@ -56,7 +56,7 @@ public class DataAccessObject {
 		}
 		return daoRset;
 	}	// end - method executeSQLQuery
-	
+
 	// --- executeSQLNonQuery() - execute an SQL command that is not a query
 	public int executeSQLNonQuery (String sqlCommand) {
 		// --- 3b) execute SQL non-query command
@@ -75,20 +75,20 @@ public class DataAccessObject {
 		}
 		return returnValue;
 	}	// end - method executeSQLNonQuery
-	
+
 	// --- processResultSet() - process the result set
-	public String processResultSet () {
+	public String processResultSet(ResultSet rs) {
 		// --- 4) process result set, only applicable if executing an SQL SELECT statement
 		ResultSetMetaData rsmd = null;		// result set metadata object
-		int columnCount = -1;				// column count 
-		String resultString = "";			// result string 
-		
+		int columnCount = -1;				// column count
+		String resultString = "";			// result string
+
 		try {
 			rsmd = daoRset.getMetaData();
-			
+
 			// get number of columns from result set metadata
 			columnCount = rsmd.getColumnCount();
-			
+
 			// row processing of result set
 			while (daoRset.next()) {
 				for (int index = 1; index <= columnCount; index++) {
@@ -107,7 +107,7 @@ public class DataAccessObject {
 		}
 		return resultString;
 	}	// end - method processResultSet
-	
+
 	// --- setAutoCommit(flag) - set autocommit on or off based on flag
 	public void setAutoCommit (boolean flag) {
 		try {
@@ -118,7 +118,7 @@ public class DataAccessObject {
 			System.err.println(sqle.getMessage());
 		}
 	}	// end - method setAutoCommit()
-	
+
 	// --- commit() - commit current transaction on connection
 	public void commit () {
 		try {
@@ -140,7 +140,7 @@ public class DataAccessObject {
 			System.err.println(sqle.getMessage());
 		}
 	}	// end - method rollback()
-	
+
 	// --- disconnect() - disconnect from the Oracle database
 	public void disconnect () {
 		// --- 5) disconnect from database

@@ -1,5 +1,4 @@
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class HumResource {
 
@@ -53,32 +52,29 @@ public class HumResource {
         dao.disconnect();
     }
 
-    public int insert(String name, String address, String phone, double latitude, double longitude, String type, String desc, String hours) {
+    public int insert(String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
         dao.connect();
         dao.setAutoCommit(false);
         int hrid = createHRID();
         dao.executeSQLNonQuery(insert + tableName + values + hrid + comma + quotation + name + quotation +
                 comma + quotation + address + quotation + comma + quotation + phone + quotation + comma + latitude +
-                comma + longitude + comma + quotation + type + quotation + comma + quotation + desc + quotation + comma + hours + quotation);
+                comma + longitude + comma + quotation + type + quotation + comma + quotation + desc + quotation + comma + quotation + hours + quotation + endParenthesis);
         dao.commit();
         dao.disconnect();
         return hrid;
     }
 
     private int createHRID() {
-        int hrid;
+        String id;
         dao.connect();
         dao.setAutoCommit(false);
         ResultSet rs = dao.executeSQLQuery(select + max + from + tableName);
+        id = dao.processResultSet(rs);
         System.out.println(rs);
-        try {
-            hrid =  rs.getInt(0);
-        }
-        catch (SQLException e) {
-            System.out.println("sad");
-            hrid = 999;
-        }
+
+        int hrid = Integer.parseInt(id);
         dao.disconnect();
+        System.out.println(hrid);
         return hrid + 1;
     }
 }
