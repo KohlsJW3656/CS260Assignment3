@@ -10,6 +10,7 @@ public class CreateWindow {
         JFrame frame = new JFrame("Humanitarian Resource Data");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300,300);
+        frame.setLocationRelativeTo(null);
 
         String[] operationStrings = {"Insert", "Update", "Delete"};
         String[] resourcesStrings = {"Medical Center", "Water", "Food"};
@@ -27,8 +28,12 @@ public class CreateWindow {
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 frame.dispose();
-                newWindow(operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
-
+                if(operations.getSelectedItem().equals("Insert")) {
+                    insertHumRes(resources.getSelectedItem().toString());
+                }
+                else {
+                    newWindow(-1, operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
+                }
             }
         });
 
@@ -39,10 +44,12 @@ public class CreateWindow {
         frame.setVisible(true);
     }
 
-    private static void newWindow(String operation, String resource){
+    private static void newWindow(int hrId, String operation, String resource){
         JFrame newFrame = new JFrame("New Window");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newFrame.setSize(600,200);
+        newFrame.setLocationRelativeTo(null);
+
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("Please enter the information");
         JButton submit = new JButton("Submit");
@@ -75,17 +82,17 @@ public class CreateWindow {
                         int numOf5Gal = Integer.parseInt(jugs.getText());
 
                         Water water = new Water();
-                        water.insert(numOf10Bottles, numOfHalfLitter, numOf5Gal);
+                        water.insert(-1,numOf10Bottles, numOfHalfLitter, numOf5Gal);
                     }
                 });
             }
             else if(operation.equals("Update")){
                 Water water = new Water();
-                water.update();
+                //water.update();
             }
             else {
                 Water water = new Water();
-                water.delete();
+                //water.delete();
             }
         }
 
@@ -118,7 +125,7 @@ public class CreateWindow {
                         String description = desc.getText();
 
                         Food food = new Food();
-                        food.insert(typeOfFood, numOfMeals, description);
+                        food.insert(-1, typeOfFood, numOfMeals, description);
                     }
                 });
 
@@ -171,17 +178,17 @@ public class CreateWindow {
                         int numOfNurses = Integer.parseInt(nurses.getText());
 
                         MedicalCenter medicalCenter = new MedicalCenter();
-                        medicalCenter.insert(numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
+                        medicalCenter.insert(-1, numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
                     }
                 });
             }
             else if(operation.equals("Update")){
                 MedicalCenter medicalCenter = new MedicalCenter();
-                medicalCenter.update();
+                //medicalCenter.update();
             }
             else {
                 MedicalCenter medicalCenter = new MedicalCenter();
-                medicalCenter.delete();
+                //medicalCenter.delete();
             }
         }
 
@@ -189,5 +196,102 @@ public class CreateWindow {
         panel.add(submit, BorderLayout.SOUTH);
         newFrame.getContentPane().add(panel);
         newFrame.setVisible(true);
+    }
+
+    private static void insertHumRes(String resource){
+        JFrame humResFrame = new JFrame("Humanitarian Resource");
+        humResFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        humResFrame.setSize(600,400);
+        humResFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new BorderLayout());
+        JLabel label = new JLabel("Please enter the Humanitarian Resource information");
+        JButton submit = new JButton("Submit");
+
+        JPanel input = new JPanel(new GridLayout(8,2));
+        JLabel name = new JLabel("Humanitarian Resource Name");
+        JLabel address = new JLabel("Address");
+        JLabel phone = new JLabel("Phone Number");
+        JLabel lat = new JLabel("Latitude");
+        JLabel lon = new JLabel("Longitude");
+        JLabel type = new JLabel("Type");
+        JLabel desc = new JLabel("Description");
+        JLabel hours = new JLabel("Hours Open");
+
+        JTextField hrName = new JTextField();
+        JTextField hrAddress = new JTextField();
+        JTextField hrPhone = new JTextField();
+        JTextField hrLat = new JTextField();
+        JTextField hrLon = new JTextField();
+        JTextField hrType = new JTextField();
+        JTextField hrDesc = new JTextField();
+        JTextField hrHours = new JTextField();
+
+        input.add(name);
+        input.add(hrName);
+
+        input.add(address);
+        input.add(hrAddress);
+
+        input.add(phone);
+        input.add(hrPhone);
+
+        input.add(lat);
+        input.add(hrLat);
+
+        input.add(lon);
+        input.add(hrLon);
+
+        input.add(type);
+        input.add(hrType);
+
+        input.add(desc);
+        input.add(hrDesc);
+
+        input.add(hours);
+        input.add(hrHours);
+
+        panel.add(input, BorderLayout.CENTER);
+
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                HumResource hr = new HumResource();
+                hr.Insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), hrLat.getText(),
+                       hrLon.getText(), hrType.getText(), hrDesc.getText(), hrHours.getText());
+                humResFrame.dispose();
+                newWindow("Insert", resource);
+            }
+        });
+
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(submit, BorderLayout.SOUTH);
+        humResFrame.getContentPane().add(panel);
+        humResFrame.setVisible(true);
+    }
+
+    private static void getIdFrame(String operation, String resource){
+        JFrame humResFrame = new JFrame("Humanitarian Resource");
+        humResFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        humResFrame.setSize(600,400);
+        humResFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Please enter the HRID");
+        JTextField id = new JTextField();
+        JButton submit = new JButton("Submit");
+
+        int hrID = Integer.parseInt(id.getText());
+
+        panel.setLayout(new BorderLayout());
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(id, BorderLayout.CENTER);
+        panel.add(submit, BorderLayout.SOUTH);
+
+        submit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+
+            }
+        });
+
     }
 }
