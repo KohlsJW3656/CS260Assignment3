@@ -33,7 +33,6 @@ public class CreateWindow {
                 }
                 else {
                     getIdFrame(operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
-                    newWindow(-1, operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
                 }
             }
         });
@@ -271,10 +270,10 @@ public class CreateWindow {
     }
 
     private static void getIdFrame(String operation, String resource){
-        JFrame humResFrame = new JFrame("Humanitarian Resource");
-        humResFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        humResFrame.setSize(600,400);
-        humResFrame.setLocationRelativeTo(null);
+        JFrame getIdFrame = new JFrame("Humanitarian Resource");
+        getIdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getIdFrame.setSize(600,400);
+        getIdFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Please enter the HRID");
@@ -288,10 +287,14 @@ public class CreateWindow {
 
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                getIdFrame.dispose();
                 int hrID = Integer.parseInt(id.getText());
                 newWindow(hrID, operation, resource);
             }
         });
+
+        getIdFrame.getContentPane().add(panel);
+        getIdFrame.setVisible(true);
 
     }
 }
