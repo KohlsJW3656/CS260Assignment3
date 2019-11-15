@@ -32,6 +32,7 @@ public class CreateWindow {
                     insertHumRes(resources.getSelectedItem().toString());
                 }
                 else {
+                    getIdFrame(operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
                     newWindow(-1, operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
                 }
             }
@@ -259,7 +260,7 @@ public class CreateWindow {
                 hr.Insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), hrLat.getText(),
                        hrLon.getText(), hrType.getText(), hrDesc.getText(), hrHours.getText());
                 humResFrame.dispose();
-                newWindow("Insert", resource);
+                newWindow(-1, "Insert", resource);
             }
         });
 
@@ -289,7 +290,7 @@ public class CreateWindow {
 
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
-
+                newWindow(hrID, operation, resource);
             }
         });
 
