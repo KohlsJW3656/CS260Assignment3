@@ -43,7 +43,7 @@ public class DataAccessObject {
 		// --- 3a) execute SQL query
 		Statement stmt = null;		// SQL statement object
 		daoRset = null;				// initialize result set
-		
+
 		try	{
 		   stmt = daoConn.createStatement();
 		   daoRset = stmt.executeQuery(sqlQuery);
@@ -54,7 +54,7 @@ public class DataAccessObject {
 			// rollback
 			rollback();
 		}
-		return null;
+		return daoRset;
 	}	// end - method executeSQLQuery
 	
 	// --- executeSQLNonQuery() - execute an SQL command that is not a query

@@ -53,14 +53,13 @@ public class HumResource {
         dao.disconnect();
     }
 
-    public int insert(String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
+    public int insert(String name, String address, String phone, double latitude, double longitude, String type, String desc, String hours) {
         dao.connect();
         dao.setAutoCommit(false);
         int hrid = createHRID();
         dao.executeSQLNonQuery(insert + tableName + values + hrid + comma + quotation + name + quotation +
-                comma + quotation + address + quotation + comma + quotation + phone + quotation + comma +
-                quotation + latitude + quotation + comma + quotation + longitude + quotation + comma +
-                quotation + type + quotation + comma + quotation + desc + quotation + comma + hours + quotation);
+                comma + quotation + address + quotation + comma + quotation + phone + quotation + comma + latitude +
+                comma + longitude + comma + quotation + type + quotation + comma + quotation + desc + quotation + comma + hours + quotation);
         dao.commit();
         dao.disconnect();
         return hrid;
@@ -73,7 +72,7 @@ public class HumResource {
         ResultSet rs = dao.executeSQLQuery(select + max + from + tableName);
         System.out.println(rs);
         try {
-            hrid =  rs.getInt(1);
+            hrid =  rs.getInt(0);
         }
         catch (SQLException e) {
             System.out.println("sad");
