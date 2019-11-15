@@ -31,7 +31,7 @@ public class HumResource {
     String select = "SELECT ";
     String max = "MAX(HRID) ";
 
-    void delete(String tableName, int hrid) {
+    public void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
         dao.executeSQLNonQuery(delete + from + tableName + where + this.hrid + equals + hrid);
@@ -40,7 +40,7 @@ public class HumResource {
         dao.disconnect();
     }
 
-    void Update(int hrid, String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
+    public void update(int hrid, String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
         dao.connect();
         dao.setAutoCommit(false);
         dao.executeSQLNonQuery(update + tableName + set + this.name + equals + quotation + name + quotation +
@@ -53,7 +53,7 @@ public class HumResource {
         dao.disconnect();
     }
 
-    int Insert(String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
+    public int insert(String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
         dao.connect();
         dao.setAutoCommit(false);
         int hrid = createHRID();
