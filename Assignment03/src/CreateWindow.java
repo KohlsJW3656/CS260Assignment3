@@ -257,7 +257,7 @@ public class CreateWindow {
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 HumResource hr = new HumResource();
-                hr.Insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), hrLat.getText(),
+                hr.insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), hrLat.getText(),
                        hrLon.getText(), hrType.getText(), hrDesc.getText(), hrHours.getText());
                 humResFrame.dispose();
                 newWindow(-1, "Insert", resource);
@@ -281,8 +281,6 @@ public class CreateWindow {
         JTextField id = new JTextField();
         JButton submit = new JButton("Submit");
 
-        int hrID = Integer.parseInt(id.getText());
-
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.NORTH);
         panel.add(id, BorderLayout.CENTER);
@@ -290,6 +288,7 @@ public class CreateWindow {
 
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                int hrID = Integer.parseInt(id.getText());
                 newWindow(hrID, operation, resource);
             }
         });
