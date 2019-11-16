@@ -70,7 +70,8 @@ public class HumResource {
         dao.setAutoCommit(false);
         ResultSet rs = dao.executeSQLQuery(select + max + from + tableName);
         id = dao.processResultSet(rs);
-        System.out.println(rs);
+        System.out.println(id);
+        System.out.println("Hi");
 
         int hrid = Integer.parseInt(id);
         dao.disconnect();
