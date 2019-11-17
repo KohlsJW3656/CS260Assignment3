@@ -52,10 +52,10 @@ public class HumResource {
         dao.disconnect();
     }
 
-    public int insert(String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
+    public int insert(String name, String address, String phone, Double latitude, Double longitude, String type, String desc, String hours) {
+        int hrid = createHRID();
         dao.connect();
         dao.setAutoCommit(false);
-        int hrid = createHRID();
         dao.executeSQLNonQuery(insert + tableName + values + hrid + comma + quotation + name + quotation +
                 comma + quotation + address + quotation + comma + quotation + phone + quotation + comma + latitude +
                 comma + longitude + comma + quotation + type + quotation + comma + quotation + desc + quotation + comma + quotation + hours + quotation + endParenthesis);
@@ -70,12 +70,8 @@ public class HumResource {
         dao.setAutoCommit(false);
         ResultSet rs = dao.executeSQLQuery(select + max + from + tableName);
         id = dao.processResultSet(rs);
-        System.out.println(id);
-        System.out.println("Hi");
-
         int hrid = Integer.parseInt(id);
         dao.disconnect();
-        System.out.println(hrid);
         return hrid + 1;
     }
 }

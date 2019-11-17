@@ -341,8 +341,8 @@ public class CreateWindow {
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 HumResource hr = new HumResource();
-                int hrID = hr.insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), hrLat.getText(),
-                       hrLon.getText(), hrType.getText(), hrDesc.getText(), hrHours.getText());
+                int hrID = hr.insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), Double.parseDouble(hrLat.getText()),
+                       Double.parseDouble(hrLon.getText()), hrType.getText(), hrDesc.getText(), hrHours.getText());
                 humResFrame.dispose();
                 newWindow(hrID, "Insert", resource);
             }

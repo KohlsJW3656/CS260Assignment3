@@ -16,8 +16,8 @@ public class DataAccessObject {
 	// --- connect() - connect to the Oracle database
 	public void connect() {
 		// --- set the username and password
-		String user = "KOHLSJW3656";
-		String pass = "78KRXHRP";
+		String user = "BLACKDT0976";
+		String pass = "E5J9QMIY";
 
 		// --- 1) get the Class object for the driver
 		try {
@@ -63,6 +63,7 @@ public class DataAccessObject {
 		Statement stmt = null;		// SQL statement object
 		returnValue = -1;			// initialize return value
 		try	{
+			System.out.println(daoConn);
 		   stmt = daoConn.createStatement();
 		   returnValue = stmt.executeUpdate(sqlCommand);
 		}
@@ -92,9 +93,8 @@ public class DataAccessObject {
 			// row processing of result set
 			while (daoRset.next()) {
 				for (int index = 1; index <= columnCount; index++) {
-					resultString += daoRset.getString(index) + "  ";
+					resultString += daoRset.getString(index);
 				}
-				resultString += "\n";
 			}
 		}
 		catch (SQLException sqle) {
