@@ -4,20 +4,20 @@ public class Food extends HumResource {
         tableName = "FOOD ";
     }
 
-    public void update(int hrid, String type, int meals, String desc) {
-        dao.connect();
-        dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("UPDATE " + tableName + "SET FType = '" + type + "', FMealsAvailable = " +
-                meals + ", FSpecificDesc = '" + desc + "' WHERE HRID = " + hrid);
-        dao.commit();
-        dao.disconnect();
-    }
-
     public void insert(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
         dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", '" + type + "', " + meals
                 + ", '" + desc + "')");
+        dao.commit();
+        dao.disconnect();
+    }
+
+    public void update(int hrid, String type, int meals, String desc) {
+        dao.connect();
+        dao.setAutoCommit(false);
+        dao.executeSQLNonQuery("UPDATE " + tableName + "SET FType = '" + type + "', FMealsAvailable = " +
+                meals + ", FSpecificDesc = '" + desc + "' WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
     }

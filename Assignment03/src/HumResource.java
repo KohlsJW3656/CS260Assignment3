@@ -1,5 +1,3 @@
-import org.omg.CORBA.PUBLIC_MEMBER;
-
 import java.sql.*;
 
 public class HumResource {
@@ -11,13 +9,16 @@ public class HumResource {
         tableName = "HumResource ";
     }
 
-    public void delete(String tableName, int hrid) {
+    public int insert(String name, String address, String phone, Double latitude, Double longitude, String type, String desc, String hours) {
+        int hrid = createHRID();
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("DELETE FROM " + tableName + "WHERE HRID = " + hrid);
-        dao.executeSQLNonQuery("DELETE FROM " + this.tableName + "WHERE HRID = " + hrid);
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", '" + name + "', " +
+                address + "', '" + phone + "', " + latitude + ", " + longitude + ", '" + type + "', '" + desc + "', '" +
+                hours + "')");
         dao.commit();
         dao.disconnect();
+        return hrid;
     }
 
     public void update(int hrid, String name, String address, String phone, Double latitude, Double longitude, String type, String desc, String hours) {
@@ -31,16 +32,13 @@ public class HumResource {
         dao.disconnect();
     }
 
-    public int insert(String name, String address, String phone, Double latitude, Double longitude, String type, String desc, String hours) {
-        int hrid = createHRID();
+    public void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", '" + name + "', " +
-                address + "', '" + phone + "', " + latitude + ", " + longitude + ", '" + type + "', '" + desc + "', '" +
-                hours + "')");
+        dao.executeSQLNonQuery("DELETE FROM " + tableName + "WHERE HRID = " + hrid);
+        dao.executeSQLNonQuery("DELETE FROM " + this.tableName + "WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
-        return hrid;
     }
 
     public String displayHRID(String tableName, int hrid) {
