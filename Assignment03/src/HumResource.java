@@ -13,7 +13,7 @@ public class HumResource {
         int hrid = createHRID();
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", '" + name + "', " +
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", '" + name + "', '" +
                 address + "', '" + phone + "', " + latitude + ", " + longitude + ", '" + type + "', '" + desc + "', '" +
                 hours + "')");
         dao.commit();
