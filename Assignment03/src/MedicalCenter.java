@@ -29,4 +29,8 @@ public class MedicalCenter extends HumResource {
         dao.commit();
         dao.disconnect();
     }
+
+    public String displayHRID(int hrid) {
+        return displayHRID(tableName, hrid);
+    }
 }

@@ -27,8 +27,6 @@ public class HumResource {
     String quotation = "\'";
     String space = " ";
     String endParenthesis = ")";
-    String select = "SELECT ";
-    String max = "MAX(HRID) ";
 
     public void delete(String tableName, int hrid) {
         dao.connect();
@@ -64,11 +62,21 @@ public class HumResource {
         return hrid;
     }
 
+    public String displayHRID(String tableName, int hrid) {
+        String result;
+        dao.connect();
+        dao.setAutoCommit(false);
+        ResultSet rs = dao.executeSQLQuery("SELECT * FROM " + tableName + "WHERE HRID = " + hrid);
+        result = dao.processResultSet(rs);
+        dao.disconnect();
+        return result;
+    }
+
     private int createHRID() {
         String id;
         dao.connect();
         dao.setAutoCommit(false);
-        ResultSet rs = dao.executeSQLQuery(select + max + from + tableName);
+        ResultSet rs = dao.executeSQLQuery("Select MAX(HRID) FROM " + tableName);
         id = dao.processResultSet(rs);
         int hrid = Integer.parseInt(id);
         dao.disconnect();
