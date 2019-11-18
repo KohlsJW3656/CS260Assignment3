@@ -27,7 +27,7 @@ public class HumResource {
         dao.executeSQLNonQuery("UPDATE " + tableName + "SET HRName = '" + name + "', HRAddressString = '"
                 + address + "', HRPhoneNumber = '" + phone + "', HRLatitude = " + latitude + ", HRLongitude = " +
                 longitude + ", HRType = '" + type + "', HRDesc = '" + desc + "', HROpenHoursString = '" + hours +
-                "WHERE HRID = " + hrid);
+                "' WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
     }
