@@ -63,7 +63,6 @@ public class DataAccessObject {
 		Statement stmt = null;		// SQL statement object
 		returnValue = -1;			// initialize return value
 		try	{
-			System.out.println(daoConn);
 		   stmt = daoConn.createStatement();
 		   returnValue = stmt.executeUpdate(sqlCommand);
 		}

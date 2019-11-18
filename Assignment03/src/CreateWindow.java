@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 public class CreateWindow {
 
-    public void homeWindow(){
+    public static void homeWindow(){
         JFrame frame = new JFrame("Humanitarian Resource Data");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300,300);
@@ -77,12 +77,14 @@ public class CreateWindow {
 
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        newFrame.dispose();
                         int numOf10Bottles = Integer.parseInt(bottles.getText());
                         int numOfHalfLitter = Integer.parseInt(halfLiterBottles.getText());
                         int numOf5Gal = Integer.parseInt(jugs.getText());
 
                         Water water = new Water();
                         water.insert(hrId, numOf10Bottles, numOfHalfLitter, numOf5Gal);
+                        endFrame();
                     }
                 });
             }
@@ -108,18 +110,21 @@ public class CreateWindow {
 
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        newFrame.dispose();
                         int numOf10Bottles = Integer.parseInt(bottles.getText());
                         int numOfHalfLitter = Integer.parseInt(halfLiterBottles.getText());
                         int numOf5Gal = Integer.parseInt(jugs.getText());
 
                         Water water = new Water();
                         water.update(hrId, numOf10Bottles, numOfHalfLitter, numOf5Gal);
+                        endFrame();
                     }
                 });
             }
             else {
                 Water water = new Water();
                 water.delete(hrId);
+                endFrame();
             }
         }
 
@@ -147,12 +152,13 @@ public class CreateWindow {
 
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        newFrame.dispose();
                         String typeOfFood = type.getText();
                         int numOfMeals = Integer.parseInt(meals.getText());
                         String description = desc.getText();
-
                         Food food = new Food();
                         food.insert(hrId, typeOfFood, numOfMeals, description);
+                        endFrame();
                     }
                 });
             }
@@ -179,18 +185,21 @@ public class CreateWindow {
 
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        newFrame.dispose();
                         String typeOfFood = type.getText();
                         int numOfMeals = Integer.parseInt(meals.getText());
                         String description = desc.getText();
 
                         Food food = new Food();
                         food.update(hrId, typeOfFood, numOfMeals, description);
+                        endFrame();
                     }
                 });
             }
             else {
                 Food food = new Food();
                 food.delete(hrId);
+                endFrame();
             }
         }
 
@@ -223,6 +232,7 @@ public class CreateWindow {
 
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        newFrame.dispose();
                         int numOfBeds = Integer.parseInt(beds.getText());
                         int roomCapacity = Integer.parseInt(roomCap.getText());
                         int numOfdoctors = Integer.parseInt(doctors.getText());
@@ -230,6 +240,7 @@ public class CreateWindow {
 
                         MedicalCenter medicalCenter = new MedicalCenter();
                         medicalCenter.insert(hrId, numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
+                        endFrame();
                     }
                 });
             }
@@ -261,6 +272,7 @@ public class CreateWindow {
 
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
+                        newFrame.dispose();
                         int numOfBeds = Integer.parseInt(beds.getText());
                         int roomCapacity = Integer.parseInt(roomCap.getText());
                         int numOfdoctors = Integer.parseInt(doctors.getText());
@@ -268,12 +280,14 @@ public class CreateWindow {
 
                         MedicalCenter medicalCenter = new MedicalCenter();
                         medicalCenter.update(hrId, numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
+                        endFrame();
                     }
                 });
             }
             else {
                 MedicalCenter medicalCenter = new MedicalCenter();
                 medicalCenter.delete(hrId);
+                endFrame();
             }
         }
 
@@ -412,10 +426,10 @@ public class CreateWindow {
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 HumResource hr = new HumResource();
-                hr.update(hrID, hrName.getText(), hrAddress.getText(), hrPhone.getText(), hrLat.getText(),
-                        hrLon.getText(), hrType.getText(), hrDesc.getText(), hrHours.getText());
+                hr.update(hrID, hrName.getText(), hrAddress.getText(), hrPhone.getText(), Double.parseDouble(hrLat.getText()),
+                        Double.parseDouble(hrLon.getText()), hrType.getText(), hrDesc.getText(), hrHours.getText());
                 updateHRFrame.dispose();
-                newWindow(hrID, "Insert", resource);
+                newWindow(hrID, "Update", resource);
             }
         });
 
@@ -429,7 +443,7 @@ public class CreateWindow {
     private static void getIdFrame(String operation, String resource){
         JFrame getIdFrame = new JFrame("Humanitarian Resource");
         getIdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        getIdFrame.setSize(600,400);
+        getIdFrame.setSize(300,200);
         getIdFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
@@ -457,6 +471,41 @@ public class CreateWindow {
 
         getIdFrame.getContentPane().add(panel);
         getIdFrame.setVisible(true);
+
+    }
+
+    private static void endFrame(){
+        JFrame endFrame = new JFrame("End Frame");
+        endFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        endFrame.setSize(600,400);
+        endFrame.setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("Success! Your operation is finished!");
+        JButton home = new JButton("Home");
+        JButton quit = new JButton("quit");
+
+        panel.setLayout(new BorderLayout());
+        panel.add(label, BorderLayout.NORTH);
+        panel.add(home, BorderLayout.CENTER);
+        panel.add(quit, BorderLayout.SOUTH);
+
+        home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                endFrame.dispose();
+                homeWindow();
+            }
+        });
+
+        home.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                endFrame.dispose();
+                return;
+            }
+        });
+
+        endFrame.getContentPane().add(panel);
+        endFrame.setVisible(true);
 
     }
 }

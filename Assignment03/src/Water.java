@@ -2,7 +2,7 @@ public class Water extends HumResource {
 
     private String tableName = "Water ";
     private String numOf10Bottles = "Num10OzBottlesAvailable ";
-    private String numOfHalfLitter = "NumHalfLiterbootlesAvailable ";
+    private String numOfHalfLitter = "NumHalfLiterBottlesAvailable ";
     private String numOf5Gal = "Num5GallonJugsAvailable ";
 
     public void update(int hrid, int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {

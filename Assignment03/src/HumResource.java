@@ -39,15 +39,15 @@ public class HumResource {
         dao.disconnect();
     }
 
-    public void update(int hrid, String name, String address, String phone, String latitude, String longitude, String type, String desc, String hours) {
+    public void update(int hrid, String name, String address, String phone, Double latitude, Double longitude, String type, String desc, String hours) {
         dao.connect();
         dao.setAutoCommit(false);
         dao.executeSQLNonQuery(update + tableName + set + this.name + equals + quotation + name + quotation +
                 comma + this.address + equals + quotation + address + quotation + comma + this.phone + equals +
-                quotation + phone + quotation + comma + this.latitude + equals + quotation + latitude + quotation +
-                comma + this.longitude + equals +  quotation + longitude + quotation + comma + this.type + equals +
+                quotation + phone + quotation + comma + this.latitude + equals + latitude +
+                comma + this.longitude + equals + longitude + comma + this.type + equals +
                 quotation + type + quotation + comma + this.desc + equals + quotation + desc + quotation + comma +
-                this.hours + equals + hours + quotation + space + where + this.hrid + equals + hrid);
+                this.hours + equals + quotation + hours + quotation + space + where + this.hrid + equals + hrid);
         dao.commit();
         dao.disconnect();
     }
