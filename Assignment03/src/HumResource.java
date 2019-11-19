@@ -48,7 +48,7 @@ public class HumResource {
         dao.connect();
         dao.setAutoCommit(false);
         dao.executeSQLNonQuery("DELETE FROM " + tableName + " WHERE HRID = " + hrid);
-        dao.executeSQLNonQuery("DELETE FROM " + this.tableName + " WHERE HRID = " + hrid);
+        dao.executeSQLNonQuery("DELETE FROM HumResource WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
     }
