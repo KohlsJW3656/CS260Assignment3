@@ -1,3 +1,10 @@
+/**
+ *
+ * Class Food - HumResource sub-class that holds information on Food table in database
+ *
+ * Create by Jonas W. Kohls 11 Nov 2019
+ */
+
 public class Food extends HumResource {
 
     public Food() {

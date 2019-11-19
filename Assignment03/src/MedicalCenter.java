@@ -1,3 +1,10 @@
+/**
+ *
+ * Class MedicalCenter - HumResource sub-class that holds information on MedicalCenter table in database
+ *
+ * Create by Jonas W. Kohls 11 Nov 2019
+ */
+
 public class MedicalCenter extends HumResource {
 
     public MedicalCenter() {
