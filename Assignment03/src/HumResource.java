@@ -5,6 +5,7 @@
  */
 
 import java.sql.*;
+import java.util.Arrays;
 
 public class HumResource {
 
@@ -12,6 +13,7 @@ public class HumResource {
     String tableName;                                               //String representing the name of the database table
     private ResultSet rs;                                           //JDBC Result Set used to store results from queries
     private int hridProcessed;                                      //int representing an HRID in the database
+    private String result;                                          //String to store processed results from a result set
 
     //HumResource Constructor
     public HumResource() {
@@ -55,7 +57,7 @@ public class HumResource {
 
     //Method that returns a String array of all data with a specific HRID from a table
     public String[] displayHRID(String tableName, int hrid) {
-        String[] resultArray;                                       //String array to store processed results from a result set
+        String[] resultArray;                                   //String array to store processed results from a result set
         dao.connect();
         dao.setAutoCommit(false);
         rs = dao.executeSQLQuery("SELECT * FROM " + tableName + " WHERE HRID = " + hrid);
@@ -64,9 +66,24 @@ public class HumResource {
         return resultArray;
     }
 
+    //Method that returns an int array of all the HRIDs in a specific table
+    public int[] displayAllHRIDs(String tableName) {
+        int[] hridArray;                                        //Int array to store processed HRIDs from a result set
+        int countHRID;                                          //Int that is the count of all HRIDs
+        dao.connect();
+        dao.setAutoCommit(false);
+        rs = dao.executeSQLQuery("SELECT COUNT(*) FROM " + tableName);
+        result = dao.processResultSet(rs);
+        countHRID = Integer.parseInt(result);
+
+        rs = dao.executeSQLQuery("SELECT HRID FROM " + tableName);
+        hridArray = dao.processIntResultSet(rs, countHRID);
+        dao.disconnect();
+        return hridArray;
+    }
+
     //Method that grabs the max HRID from HumResource table and returns an int one higher than it
     private int createHRID() {
-        String result;                                              //String to store processed results from a result set
         dao.connect();
         dao.setAutoCommit(false);
         rs = dao.executeSQLQuery("Select MAX(HRID) FROM " + tableName);

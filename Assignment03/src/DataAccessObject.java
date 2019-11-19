@@ -141,6 +141,36 @@ public class DataAccessObject {
 		return resultString;
 	}	// end - method processResultSet
 
+	public int[] processIntResultSet(ResultSet rs, int length) {
+		// --- 4) process result set, only applicable if executing an SQL SELECT statement
+		ResultSetMetaData rsmd = null;		// result set metadata object
+		int columnCount = -1;				// column count
+		int[] resultInt = new int[length];			// result string
+
+		try {
+			rsmd = daoRset.getMetaData();
+
+			// get number of columns from result set metadata
+			columnCount = rsmd.getColumnCount();
+
+			// row processing of result set
+			for (int i = 0; i < length; i++) {
+				if (daoRset.next()) {
+					resultInt[i] = daoRset.getInt(1);
+				}
+			}
+		}
+		catch (SQLException sqle) {
+			System.err.println("Error in processing result set");
+			System.err.println(sqle.getMessage());
+		}
+		catch (NullPointerException npe) {
+			System.err.println("DAO, processResultSet() - no result set generated");
+			System.err.println(npe.getMessage());
+		}
+		return resultInt;
+	}	// end - method processResultSet
+
 	// --- setAutoCommit(flag) - set autocommit on or off based on flag
 	public void setAutoCommit (boolean flag) {
 		try {
