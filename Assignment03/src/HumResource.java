@@ -72,10 +72,13 @@ public class HumResource {
         int countHRID;                                          //Int that is the count of all HRIDs
         dao.connect();
         dao.setAutoCommit(false);
+
+        //Count how many HRIDs are in a table
         rs = dao.executeSQLQuery("SELECT COUNT(*) FROM " + tableName);
         result = dao.processResultSet(rs);
         countHRID = Integer.parseInt(result);
 
+        //Put all HRIDs into an int array
         rs = dao.executeSQLQuery("SELECT HRID FROM " + tableName);
         hridArray = dao.processIntResultSet(rs, countHRID);
         dao.disconnect();

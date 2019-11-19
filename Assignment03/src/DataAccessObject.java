@@ -110,7 +110,7 @@ public class DataAccessObject {
 		return resultString;
 	}	// end - method processResultSet
 
-	// --- processResultSet() - process the result set
+	// --- processUpdateResultSet() - process the result set
 	public String[] processUpdateResultSet(ResultSet rs) {
 		// --- 4) process result set, only applicable if executing an SQL SELECT statement
 		ResultSetMetaData rsmd = null;		// result set metadata object
@@ -139,8 +139,9 @@ public class DataAccessObject {
 			System.err.println(npe.getMessage());
 		}
 		return resultString;
-	}	// end - method processResultSet
+	}	// end - method processUpdateResultSet
 
+    // --- processIntResultSet() - process the result set
 	public int[] processIntResultSet(ResultSet rs, int length) {
 		// --- 4) process result set, only applicable if executing an SQL SELECT statement
 		ResultSetMetaData rsmd = null;		// result set metadata object
@@ -169,7 +170,7 @@ public class DataAccessObject {
 			System.err.println(npe.getMessage());
 		}
 		return resultInt;
-	}	// end - method processResultSet
+	}	// end - method processIntResultSet
 
 	// --- setAutoCommit(flag) - set autocommit on or off based on flag
 	public void setAutoCommit (boolean flag) {
