@@ -16,11 +16,11 @@ public class DataAccessObject {
 	// --- connect() - connect to the Oracle database
 	public void connect() {
 		// --- set the username and password
-		// String user = "BLACKDT0976";
-		// String pass = "E5J9QMIY";
+		 String user = "BLACKDT0976";
+		 String pass = "E5J9QMIY";
 		//
-		String user = "KOHLSJW3656";
-		String pass = "78KRXHRP";
+		//String user = "KOHLSJW3656";
+		//String pass = "78KRXHRP";
 
 		// --- 1) get the Class object for the driver
 		try {
@@ -96,6 +96,37 @@ public class DataAccessObject {
 			while (daoRset.next()) {
 				for (int index = 1; index <= columnCount; index++) {
 					resultString += daoRset.getString(index);
+				}
+			}
+		}
+		catch (SQLException sqle) {
+			System.err.println("Error in processing result set");
+			System.err.println(sqle.getMessage());
+		}
+		catch (NullPointerException npe) {
+			System.err.println("DAO, processResultSet() - no result set generated");
+			System.err.println(npe.getMessage());
+		}
+		return resultString;
+	}	// end - method processResultSet
+
+	// --- processResultSet() - process the result set
+	public String[] processUpdateResultSet(ResultSet rs) {
+		// --- 4) process result set, only applicable if executing an SQL SELECT statement
+		ResultSetMetaData rsmd = null;		// result set metadata object
+		int columnCount = -1;				// column count
+		String[] resultString = new String[10];			// result string
+
+		try {
+			rsmd = daoRset.getMetaData();
+
+			// get number of columns from result set metadata
+			columnCount = rsmd.getColumnCount();
+
+			// row processing of result set
+			while (daoRset.next()) {
+				for (int index = 1; index <= columnCount; index++) {
+					resultString[index-1] = daoRset.getString(index);
 				}
 			}
 		}

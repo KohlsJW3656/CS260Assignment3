@@ -26,7 +26,7 @@ public class Food extends HumResource {
         delete(tableName, hrid);
     }
 
-    public String displayHRID(int hrid) {
+    public String[] displayHRID(int hrid) {
         return displayHRID(tableName, hrid);
     }
 }

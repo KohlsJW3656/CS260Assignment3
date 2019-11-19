@@ -93,9 +93,13 @@ public class CreateWindow {
                 JLabel label1 = new JLabel("Number of 10oz bottles:");
                 JLabel label2 = new JLabel("Number of half-liter bottles:");
                 JLabel label3 = new JLabel("Number of 5gal jugs:");
-                JTextField bottles = new JTextField();
-                JTextField halfLiterBottles = new JTextField();
-                JTextField jugs = new JTextField();
+
+                Water water = new Water();
+                String[] results = water.displayHRID(hrId);
+
+                JTextField bottles = new JTextField(results[1]);
+                JTextField halfLiterBottles = new JTextField(results[2]);
+                JTextField jugs = new JTextField(results[3]);
 
                 input.add(label1);
                 input.add(bottles);
@@ -168,9 +172,12 @@ public class CreateWindow {
                 JLabel label2 = new JLabel("Number of meals available:");
                 JLabel label3 = new JLabel("Description");
 
-                JTextField type = new JTextField();
-                JTextField meals = new JTextField();
-                JTextField desc = new JTextField();
+                Food food = new Food();
+                String[] results = food.displayHRID(hrId);
+
+                JTextField type = new JTextField(results[1]);
+                JTextField meals = new JTextField(results[2]);
+                JTextField desc = new JTextField(results[3]);
 
                 input.add(label1);
                 input.add(type);
@@ -251,10 +258,13 @@ public class CreateWindow {
                 JLabel label3 = new JLabel("Number of doctors");
                 JLabel label4 = new JLabel("Number of nurses");
 
-                JTextField beds = new JTextField("", 5);
-                JTextField roomCap = new JTextField();
-                JTextField doctors = new JTextField();
-                JTextField nurses = new JTextField();
+                MedicalCenter medicalCenter = new MedicalCenter();
+                String[] results = medicalCenter.displayHRID(hrId);
+
+                JTextField beds = new JTextField(results[1]);
+                JTextField roomCap = new JTextField(results[2]);
+                JTextField doctors = new JTextField(results[3]);
+                JTextField nurses = new JTextField(results[4]);
 
                 input.add(label1);
                 input.add(beds);
@@ -291,10 +301,15 @@ public class CreateWindow {
             }
         }
 
-        panel.add(label, BorderLayout.NORTH);
-        panel.add(submit, BorderLayout.SOUTH);
-        newFrame.getContentPane().add(panel);
-        newFrame.setVisible(true);
+        if(!operation.equals("Delete")){
+            panel.add(label, BorderLayout.NORTH);
+            panel.add(submit, BorderLayout.SOUTH);
+            newFrame.getContentPane().add(panel);
+            newFrame.setVisible(true);
+        }
+        else {
+            newFrame.dispose();
+        }
     }
 
     private static void insertHumRes(String resource){
@@ -388,14 +403,17 @@ public class CreateWindow {
         JLabel desc = new JLabel("Description");
         JLabel hours = new JLabel("Hours Open");
 
-        JTextField hrName = new JTextField();
-        JTextField hrAddress = new JTextField();
-        JTextField hrPhone = new JTextField();
-        JTextField hrLat = new JTextField();
-        JTextField hrLon = new JTextField();
-        JTextField hrType = new JTextField();
-        JTextField hrDesc = new JTextField();
-        JTextField hrHours = new JTextField();
+        HumResource humResource = new HumResource();
+        String[] results = humResource.displayHRID("HumResource", hrID);
+
+        JTextField hrName = new JTextField(results[1]);
+        JTextField hrAddress = new JTextField(results[2]);
+        JTextField hrPhone = new JTextField(results[3]);
+        JTextField hrLat = new JTextField(results[4]);
+        JTextField hrLon = new JTextField(results[5]);
+        JTextField hrType = new JTextField(results[6]);
+        JTextField hrDesc = new JTextField(results[7]);
+        JTextField hrHours = new JTextField(results[8]);
 
         input.add(name);
         input.add(hrName);
@@ -440,6 +458,11 @@ public class CreateWindow {
 
     }
 
+    /**
+     * A frame to get the id of the resource the user wants to operate on
+     * @param operation the operation that the user wants to use
+     * @param resource the type of resource the user wants to act on
+     */
     private static void getIdFrame(String operation, String resource){
         JFrame getIdFrame = new JFrame("Humanitarian Resource");
         getIdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -474,22 +497,26 @@ public class CreateWindow {
 
     }
 
+    /**
+     * Create the frame that the user sees when their operation has ended
+     */
     private static void endFrame(){
+        // Creating the frame the user sees
         JFrame endFrame = new JFrame("End Frame");
         endFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         endFrame.setSize(600,400);
         endFrame.setLocationRelativeTo(null);
 
+        // The following are elements of the display
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Success! Your operation is finished!");
         JButton home = new JButton("Home");
-        JButton quit = new JButton("quit");
+        JButton quit = new JButton("Quit");
 
-        panel.setLayout(new BorderLayout());
-        panel.add(label, BorderLayout.NORTH);
-        panel.add(home, BorderLayout.CENTER);
-        panel.add(quit, BorderLayout.SOUTH);
+        panel.add(home);
+        panel.add(quit);
 
+        // Action Listener to to remove the current frame and go to home screen
         home.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 endFrame.dispose();
@@ -497,15 +524,16 @@ public class CreateWindow {
             }
         });
 
-        home.addActionListener(new ActionListener() {
+        // Action Listener to remove the current frame and end the program
+        quit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 endFrame.dispose();
                 return;
             }
         });
 
-        endFrame.getContentPane().add(panel);
+        endFrame.getContentPane().add(BorderLayout.NORTH, label);
+        endFrame.getContentPane().add(BorderLayout.CENTER, panel);
         endFrame.setVisible(true);
-
     }
 }

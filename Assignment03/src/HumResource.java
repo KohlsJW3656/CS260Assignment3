@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Arrays;
 
 public class HumResource {
 
@@ -41,12 +42,12 @@ public class HumResource {
         dao.disconnect();
     }
 
-    public String displayHRID(String tableName, int hrid) {
-        String result;
+    public String[] displayHRID(String tableName, int hrid) {
+        String[] result;
         dao.connect();
         dao.setAutoCommit(false);
-        ResultSet rs = dao.executeSQLQuery("SELECT * FROM " + tableName + "WHERE HRID = " + hrid);
-        result = dao.processResultSet(rs);
+        ResultSet rs = dao.executeSQLQuery("SELECT * FROM " + tableName + " WHERE HRID = " + hrid);
+        result = dao.processUpdateResultSet(rs);
         dao.disconnect();
         return result;
     }
