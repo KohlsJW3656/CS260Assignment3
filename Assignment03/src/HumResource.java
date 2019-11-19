@@ -1,5 +1,4 @@
 /**
- *
  * Class HumResource - class that holds information on HumResource table in database
  *
  * Create by Jonas W. Kohls 11 Nov 2019
@@ -54,7 +53,7 @@ public class HumResource {
         dao.disconnect();
     }
 
-    //Method that returns a string of all data with a specific HRID from a table
+    //Method that returns a String array of all data with a specific HRID from a table
     public String[] displayHRID(String tableName, int hrid) {
         String[] resultArray;                                       //String array to store processed results from a result set
         dao.connect();
