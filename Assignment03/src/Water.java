@@ -8,14 +8,14 @@ public class Water extends HumResource {
 
     //Water Constructor
     public Water() {
-        tableName = "WATER ";
+        tableName = "WATER";
     }
 
     //Method that inserts parameters into the Water table
     public void insert(int hrid, int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", " + numOf10Bottles + ", "
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hrid + ", " + numOf10Bottles + ", "
                 + numOfHalfLitter + ", " + numOf5Gal + ")");
         dao.commit();
         dao.disconnect();
@@ -25,7 +25,7 @@ public class Water extends HumResource {
     public void update(int hrid, int numOf10Bottles, int numOfHalfLitter, int numOf5Gal) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("UPDATE " + tableName + "SET Num10OzBottlesAvailable = " + numOf10Bottles +
+        dao.executeSQLNonQuery("UPDATE " + tableName + " SET Num10OzBottlesAvailable = " + numOf10Bottles +
                         ", NumHalfLiterBottlesAvailable = " + numOfHalfLitter + ", Num5GallonJugsAvailable = " +
                 numOf5Gal + " WHERE HRID = " + hrid);
         dao.commit();

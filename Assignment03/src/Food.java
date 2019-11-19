@@ -8,14 +8,14 @@ public class Food extends HumResource {
 
     //Food Constructor
     public Food() {
-        tableName = "FOOD ";
+        tableName = "FOOD";
     }
 
     //Method that inserts parameters into the Food table
     public void insert(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", '" + type + "', " + meals
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hrid + ", '" + type + "', " + meals
                 + ", '" + desc + "')");
         dao.commit();
         dao.disconnect();
@@ -25,7 +25,7 @@ public class Food extends HumResource {
     public void update(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("UPDATE " + tableName + "SET FType = '" + type + "', FMealsAvailable = " +
+        dao.executeSQLNonQuery("UPDATE " + tableName + " SET FType = '" + type + "', FMealsAvailable = " +
                 meals + ", FSpecificDesc = '" + desc + "' WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();

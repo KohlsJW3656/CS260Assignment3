@@ -15,7 +15,7 @@ public class HumResource {
 
     //HumResource Constructor
     public HumResource() {
-        tableName = "HumResource ";
+        tableName = "HumResource";
     }
 
     //Method that inserts parameters into the HumResource table
@@ -23,7 +23,7 @@ public class HumResource {
         hridProcessed = createHRID();
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hridProcessed + ", '" + name + "', '" +
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hridProcessed + ", '" + name + "', '" +
                 address + "', '" + phone + "', " + latitude + ", " + longitude + ", '" + type + "', '" + desc + "', '" +
                 hours + "')");
         dao.commit();
@@ -35,7 +35,7 @@ public class HumResource {
     public void update(int hrid, String name, String address, String phone, Double latitude, Double longitude, String type, String desc, String hours) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("UPDATE " + tableName + "SET HRName = '" + name + "', HRAddressString = '"
+        dao.executeSQLNonQuery("UPDATE " + tableName + " SET HRName = '" + name + "', HRAddressString = '"
                 + address + "', HRPhoneNumber = '" + phone + "', HRLatitude = " + latitude + ", HRLongitude = " +
                 longitude + ", HRType = '" + type + "', HRDesc = '" + desc + "', HROpenHoursString = '" + hours +
                 "' WHERE HRID = " + hrid);
@@ -47,8 +47,8 @@ public class HumResource {
     public void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("DELETE FROM " + tableName + "WHERE HRID = " + hrid);
-        dao.executeSQLNonQuery("DELETE FROM " + this.tableName + "WHERE HRID = " + hrid);
+        dao.executeSQLNonQuery("DELETE FROM " + tableName + " WHERE HRID = " + hrid);
+        dao.executeSQLNonQuery("DELETE FROM " + this.tableName + " WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
     }

@@ -8,14 +8,14 @@ public class MedicalCenter extends HumResource {
 
     //MedicalCenter Constructor
     public MedicalCenter() {
-        tableName = "MedicalCenter ";
+        tableName = "MedicalCenter";
     }
 
     //Method that inserts parameters into the MedicalCenter table
     public void insert(int hrid, int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + "VALUES (" + hrid + ", " + beds + ", " + roomCap
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hrid + ", " + beds + ", " + roomCap
                 + "," + doctors + ", " + nurses + ")");
         dao.commit();
         dao.disconnect();
@@ -25,7 +25,7 @@ public class MedicalCenter extends HumResource {
     public void update(int hrid, int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("UPDATE " + tableName + "SET NumBeds = " + beds + ", EmergencyRoomCapacity = "
+        dao.executeSQLNonQuery("UPDATE " + tableName + " SET NumBeds = " + beds + ", EmergencyRoomCapacity = "
                 + roomCap + ", NumDoctors = " + doctors + ", NumNurses = " + nurses + " WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
