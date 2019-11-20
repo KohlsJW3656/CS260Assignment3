@@ -3,6 +3,7 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class CreateWindow {
 
@@ -45,13 +46,13 @@ public class CreateWindow {
     }
 
     private static void newWindow(int hrId, String operation, String resource){
-        JFrame newFrame = new JFrame("New Window");
+        JFrame newFrame = new JFrame("Operation");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newFrame.setSize(600,200);
         newFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("Please enter the information");
+        JLabel label = new JLabel("Please enter the " + resource.toLowerCase() + " information");
         JButton submit = new JButton("Submit");
 
         if(resource.equals("Water")) {
@@ -390,7 +391,7 @@ public class CreateWindow {
         updateHRFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel(new BorderLayout());
-        JLabel label = new JLabel("Please enter the Humanitarian Resource information");
+        JLabel label = new JLabel("Please update the Humanitarian Resource information");
         JButton submit = new JButton("Submit");
 
         JPanel input = new JPanel(new GridLayout(8,2));
@@ -470,19 +471,19 @@ public class CreateWindow {
         getIdFrame.setLocationRelativeTo(null);
 
         JPanel panel = new JPanel();
-        JLabel label = new JLabel("Please enter the HRID");
-        JTextField id = new JTextField();
+        JLabel label = new JLabel("Please select the " + resource + " HRID");
         JButton submit = new JButton("Submit");
+        JComboBox idDisplay = new JComboBox(getIDArray(resource));
 
         panel.setLayout(new BorderLayout());
         panel.add(label, BorderLayout.NORTH);
-        panel.add(id, BorderLayout.CENTER);
+        panel.add(idDisplay, BorderLayout.CENTER);
         panel.add(submit, BorderLayout.SOUTH);
 
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 getIdFrame.dispose();
-                int hrID = Integer.parseInt(id.getText());
+                int hrID = Integer.parseInt(idDisplay.getSelectedItem().toString());
                 if(operation.equals("Update")){
                     updateHRFrame(hrID, resource);
                 }
@@ -495,6 +496,21 @@ public class CreateWindow {
         getIdFrame.getContentPane().add(panel);
         getIdFrame.setVisible(true);
 
+    }
+
+    public static String[] getIDArray(String resource) {
+        if(resource.equals("Medical Center")){
+            MedicalCenter medicalCenter = new MedicalCenter();
+            return medicalCenter.displayAllHRIDs();
+        }
+        else if(resource.equals("Water")){
+            Water water = new Water();
+            return water.displayAllHRIDs();
+        }
+        else{
+            Food food = new Food();
+            return food.displayAllHRIDs();
+        }
     }
 
     /**

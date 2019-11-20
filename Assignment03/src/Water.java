@@ -37,13 +37,15 @@ public class Water extends HumResource {
         delete(tableName, hrid);
     }
 
-    //Method that calls HumResource displayHRID() method, passes in the table name parameter and returns a String array of all data with a specific HRID from a table
+    //Method that calls HumResource displayHRID() method, passes in the table name parameter
+    // and returns a String array of all data with a specific HRID from a table
     public String[] displayHRID(int hrid) {
         return displayHRID(tableName, hrid);
     }
 
-    //Method that calls HumResource displayAllHRIDs() method, passes in the table name parameter, and returns an int array of all HRIDs in a specific table
-    public int[] displayAllHRIDs() {
+    //Method that calls HumResource displayAllHRIDs() method, passes in the table name parameter,
+    // and returns String array of all HRIDs in a specific table
+    public String[] displayAllHRIDs() {
         return displayAllHRIDs(tableName);
     }
 }

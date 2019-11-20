@@ -45,7 +45,8 @@ public class HumResource {
         dao.disconnect();
     }
 
-    //Method that deletes all data with a specific HRID in HumResource table, and a table in a parameter
+    //Method that deletes all data with a specific HRID in HumResource table, and a
+    // table in a parameter
     public void delete(String tableName, int hrid) {
         dao.connect();
         dao.setAutoCommit(false);
@@ -67,8 +68,8 @@ public class HumResource {
     }
 
     //Method that returns an int array of all the HRIDs in a specific table
-    public int[] displayAllHRIDs(String tableName) {
-        int[] hridArray;                                        //Int array to store processed HRIDs from a result set
+    public String[] displayAllHRIDs(String tableName) {
+        String[] hridArray;                                     //Int array to store processed HRIDs from a result set
         int countHRID;                                          //Int that is the count of all HRIDs
         dao.connect();
         dao.setAutoCommit(false);
