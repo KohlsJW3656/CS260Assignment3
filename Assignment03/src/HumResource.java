@@ -5,7 +5,6 @@
  */
 
 import java.sql.*;
-import java.util.Arrays;
 
 public class HumResource {
 
