@@ -5,34 +5,48 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+/**
+ * This class is the class that handles the GUI
+ */
 public class CreateWindow {
 
+    /*
+      Creates the home window GUI
+     */
     public static void homeWindow(){
+        //frame that will be used for the home window
         JFrame frame = new JFrame("Humanitarian Resource Data");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(300,300);
         frame.setLocationRelativeTo(null);
 
+        //array of operations that user can perform
         String[] operationStrings = {"Insert", "Update", "Delete"};
+        //array of resources the user can operate on
         String[] resourcesStrings = {"Medical Center", "Water", "Food"};
 
+        //panel that elements for the display will be added to
         JPanel panel = new JPanel();
 
+        //The following are GUI elements that get added to the display
         JLabel label = new JLabel("Select an operation and resource type");
         JButton button = new JButton("Continue");
-
         JComboBox operations = new JComboBox(operationStrings);
         JComboBox resources = new JComboBox(resourcesStrings);
+
         panel.add(operations);
         panel.add(resources);
 
+        //A method for handling when the user presses the continue button
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 frame.dispose();
                 if(operations.getSelectedItem().equals("Insert")) {
+                    //user wants to insert
                     insertHumRes(resources.getSelectedItem().toString());
                 }
                 else {
+                    //user wants to update/delete so we need to get the id
                     getIdFrame(operations.getSelectedItem().toString(), resources.getSelectedItem().toString());
                 }
             }
@@ -45,18 +59,29 @@ public class CreateWindow {
         frame.setVisible(true);
     }
 
+    /**
+     * This is the main window for the user. It displays the information for
+     * updating or inserting an entry
+     * @param hrId the HRID of the element the user is operating on
+     * @param operation the operation the user is performing
+     * @param resource the resource that the user is operating on
+     */
     private static void newWindow(int hrId, String operation, String resource){
+        //the frame that will display the window
         JFrame newFrame = new JFrame("Operation");
         newFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         newFrame.setSize(600,200);
         newFrame.setLocationRelativeTo(null);
 
+        //The following are elements of the display
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("Please enter the " + resource.toLowerCase() + " information");
         JButton submit = new JButton("Submit");
 
         if(resource.equals("Water")) {
+            //user wants to insert water
             if(operation.equals("Insert")){
+                //the following are elements of the display
                 JPanel input = new JPanel(new GridLayout(3,2));
                 JLabel label1 = new JLabel("Number of 10oz bottles:");
                 JLabel label2 = new JLabel("Number of half-liter bottles:");
@@ -79,25 +104,35 @@ public class CreateWindow {
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         newFrame.dispose();
+                        //gets the number of 10oz bottles that the user input
                         int numOf10Bottles = Integer.parseInt(bottles.getText());
+                        //gets the number of half litter bottles that the user input
                         int numOfHalfLitter = Integer.parseInt(halfLiterBottles.getText());
+                        //gets the number of 5 gallon water bottles that the user input
                         int numOf5Gal = Integer.parseInt(jugs.getText());
 
+                        //a water object that is used to insert a water
                         Water water = new Water();
                         water.insert(hrId, numOf10Bottles, numOfHalfLitter, numOf5Gal);
                         endFrame();
                     }
                 });
             }
+            //user wants to update water
             else if(operation.equals("Update")){
+                //the following are elements that are added to the display
                 JPanel input = new JPanel(new GridLayout(3,2));
                 JLabel label1 = new JLabel("Number of 10oz bottles:");
                 JLabel label2 = new JLabel("Number of half-liter bottles:");
                 JLabel label3 = new JLabel("Number of 5gal jugs:");
 
+                //a water object that is used to get the information about a water object
                 Water water = new Water();
+                //an array with the current information for a specific water object in the DB
                 String[] results = water.displayHRID(hrId);
 
+                //the following are elements of the display. results[x] is equal to what is
+                //stored in the database for that element
                 JTextField bottles = new JTextField(results[1]);
                 JTextField halfLiterBottles = new JTextField(results[2]);
                 JTextField jugs = new JTextField(results[3]);
@@ -113,190 +148,248 @@ public class CreateWindow {
 
                 panel.add(input, BorderLayout.CENTER);
 
+                //An action listener for when the user wants to update
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         newFrame.dispose();
+                        //number of 10oz bottles the user wants to input
                         int numOf10Bottles = Integer.parseInt(bottles.getText());
+                        //number of half litter bottles the user wants to input
                         int numOfHalfLitter = Integer.parseInt(halfLiterBottles.getText());
+                        //number of 5 gallon bottles the user wants to input
                         int numOf5Gal = Integer.parseInt(jugs.getText());
 
-                        Water water = new Water();
+                        //update the water with the values the user input
                         water.update(hrId, numOf10Bottles, numOfHalfLitter, numOf5Gal);
                         endFrame();
                     }
                 });
             }
+            //user wants to delete a water
             else {
+                //a water object that is used to delete a water
                 Water water = new Water();
+                //delete the water
                 water.delete(hrId);
+                //display the ending frame
                 endFrame();
             }
         }
 
         else if(resource.equals("Food")) {
+            //user wants to insert a food
             if(operation.equals("Insert")){
+                //the following are elements of the display
                 JPanel input = new JPanel(new GridLayout(3,2));
-                JLabel label1 = new JLabel("Food type:");
-                JLabel label2 = new JLabel("Number of meals available:");
-                JLabel label3 = new JLabel("Description");
-
+                JLabel foodType = new JLabel("Food type:");
+                JLabel numberOfMeals = new JLabel("Number of meals available:");
+                JLabel description = new JLabel("Description");
                 JTextField type = new JTextField();
                 JTextField meals = new JTextField();
                 JTextField desc = new JTextField();
 
-                input.add(label1);
+                input.add(foodType);
                 input.add(type);
 
-                input.add(label2);
+                input.add(numberOfMeals);
                 input.add(meals);
 
-                input.add(label3);
+                input.add(description);
                 input.add(desc);
 
                 panel.add(input, BorderLayout.CENTER);
 
+                //a method for when the user wants to insert their food information
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         newFrame.dispose();
+                        //gets the type of food that the user wants to input
                         String typeOfFood = type.getText();
+                        //gets the number of meals that the user wants to input
                         int numOfMeals = Integer.parseInt(meals.getText());
+                        //gets the description that the user wants to input
                         String description = desc.getText();
+                        //a food object that is used for inserting food
                         Food food = new Food();
+                        //insert the food item
                         food.insert(hrId, typeOfFood, numOfMeals, description);
+                        //display the ending frame
                         endFrame();
                     }
                 });
             }
             else if(operation.equals("Update")){
+                //user wants to update a food item
+                //the following are elements of the display
                 JPanel input = new JPanel(new GridLayout(3,2));
-                JLabel label1 = new JLabel("Food type:");
-                JLabel label2 = new JLabel("Number of meals available:");
-                JLabel label3 = new JLabel("Description");
+                JLabel foodType = new JLabel("Food type:");
+                JLabel numberOfMeals = new JLabel("Number of meals available:");
+                JLabel description = new JLabel("Description");
 
+                //a food object used to get the current data for a food item in the DB
                 Food food = new Food();
+                //an array that holds the data that is in the DB for the food object
+                //that the user wants to update
                 String[] results = food.displayHRID(hrId);
 
+                //the following are elements of the display. results[x] is what is currently
+                //in the DB for that food object
                 JTextField type = new JTextField(results[1]);
                 JTextField meals = new JTextField(results[2]);
                 JTextField desc = new JTextField(results[3]);
 
-                input.add(label1);
+                input.add(foodType);
                 input.add(type);
 
-                input.add(label2);
+                input.add(numberOfMeals);
                 input.add(meals);
 
-                input.add(label3);
+                input.add(description);
                 input.add(desc);
 
                 panel.add(input, BorderLayout.CENTER);
 
+                //a method for handling when a user wants to update a specific food item
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         newFrame.dispose();
+                        //gets the type of food that the user wants to update to
                         String typeOfFood = type.getText();
+                        //gets the number of meals that the user wants to update to
                         int numOfMeals = Integer.parseInt(meals.getText());
+                        //gets the description that the user wants to update to
                         String description = desc.getText();
 
+                        //a food object is used to update food
                         Food food = new Food();
+                        //update the food item
                         food.update(hrId, typeOfFood, numOfMeals, description);
                         endFrame();
                     }
                 });
             }
             else {
+                //user wants to delete a food item
+                //a food object that is used to delete a food object
                 Food food = new Food();
+                //delete the food object
                 food.delete(hrId);
                 endFrame();
             }
         }
 
         else {
+            //user wants to insert a medical center
             if(operation.equals("Insert")){
+                //the following are elements of the display
                 JPanel input = new JPanel(new GridLayout(4,2));
-                JLabel label1 = new JLabel("Number of beds");
-                JLabel label2 = new JLabel("Emergency room capacity");
-                JLabel label3 = new JLabel("Number of doctors");
-                JLabel label4 = new JLabel("Number of nurses");
-
+                JLabel numberOfBeds = new JLabel("Number of beds");
+                JLabel erRoomCapacity = new JLabel("Emergency room capacity");
+                JLabel numberOfDoctors = new JLabel("Number of doctors");
+                JLabel numberOfNurses = new JLabel("Number of nurses");
                 JTextField beds = new JTextField("", 5);
                 JTextField roomCap = new JTextField();
                 JTextField doctors = new JTextField();
                 JTextField nurses = new JTextField();
 
-                input.add(label1);
+                input.add(numberOfBeds);
                 input.add(beds);
 
-                input.add(label2);
+                input.add(erRoomCapacity);
                 input.add(roomCap);
 
-                input.add(label3);
+                input.add(numberOfDoctors);
                 input.add(doctors);
 
-                input.add(label4);
+                input.add(numberOfNurses);
                 input.add(nurses);
 
                 panel.add(input, BorderLayout.CENTER);
 
+                //a method for when the user wants to insert a medical center
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         newFrame.dispose();
+                        //gets the number of beds the user wants to insert
                         int numOfBeds = Integer.parseInt(beds.getText());
+                        //gets the room capacity the user wants to insert
                         int roomCapacity = Integer.parseInt(roomCap.getText());
+                        //gets the number of doctors the user wants to insert
                         int numOfdoctors = Integer.parseInt(doctors.getText());
+                        //gets the number of nurses the user wants to insert
                         int numOfNurses = Integer.parseInt(nurses.getText());
 
+                        //a medical center object that is used to insert a medical center
                         MedicalCenter medicalCenter = new MedicalCenter();
+                        //insert the medical center
                         medicalCenter.insert(hrId, numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
                         endFrame();
                     }
                 });
             }
+            //user wants to update a medical center
             else if(operation.equals("Update")){
+                //the following are elements of the display
                 JPanel input = new JPanel(new GridLayout(4,2));
-                JLabel label1 = new JLabel("Number of beds");
-                JLabel label2 = new JLabel("Emergency room capacity");
-                JLabel label3 = new JLabel("Number of doctors");
-                JLabel label4 = new JLabel("Number of nurses");
+                JLabel numberOfBeds = new JLabel("Number of beds");
+                JLabel emergencyRoomCapacity = new JLabel("Emergency room capacity");
+                JLabel numberOfDoctors = new JLabel("Number of doctors");
+                JLabel numberOfNurses = new JLabel("Number of nurses");
 
+                // a medical center object for getting the information that is currently
+                // in the DB for a medical center object
                 MedicalCenter medicalCenter = new MedicalCenter();
+                //an array containing the information that is currently in the DB for
+                //the medical center the user wants to update
                 String[] results = medicalCenter.displayHRID(hrId);
 
+                //elements that the user enters information into. results[x] is what is
+                //currently stored in the DB
                 JTextField beds = new JTextField(results[1]);
                 JTextField roomCap = new JTextField(results[2]);
                 JTextField doctors = new JTextField(results[3]);
                 JTextField nurses = new JTextField(results[4]);
 
-                input.add(label1);
+                input.add(numberOfBeds);
                 input.add(beds);
 
-                input.add(label2);
+                input.add(emergencyRoomCapacity);
                 input.add(roomCap);
 
-                input.add(label3);
+                input.add(numberOfDoctors);
                 input.add(doctors);
 
-                input.add(label4);
+                input.add(numberOfNurses);
                 input.add(nurses);
 
                 panel.add(input, BorderLayout.CENTER);
 
+                //a method for when the user wants to update the medical center
                 submit.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent ae) {
                         newFrame.dispose();
+                        //gets the number of beds the user wants to input
                         int numOfBeds = Integer.parseInt(beds.getText());
+                        //gets the room capacity the user wants to input
                         int roomCapacity = Integer.parseInt(roomCap.getText());
+                        //gets the number of doctors the user wants to input
                         int numOfdoctors = Integer.parseInt(doctors.getText());
+                        //gets the number of nurses the user wants to input
                         int numOfNurses = Integer.parseInt(nurses.getText());
 
+                        //a medical center object that is used to update
                         MedicalCenter medicalCenter = new MedicalCenter();
+                        //update the medical center
                         medicalCenter.update(hrId, numOfBeds, roomCapacity, numOfdoctors, numOfNurses);
                         endFrame();
                     }
                 });
             }
+            //user wants to delete a medical center
             else {
+                //a medical center object used to delete a medical center
                 MedicalCenter medicalCenter = new MedicalCenter();
+                //delete the medical center
                 medicalCenter.delete(hrId);
                 endFrame();
             }
@@ -313,16 +406,21 @@ public class CreateWindow {
         }
     }
 
+    /**
+     * Displays the screen to insert a humanitarian resource
+     * @param resource the resource the user wants to insert
+     */
     private static void insertHumRes(String resource){
+        //the frame that will be displayed
         JFrame humResFrame = new JFrame("Humanitarian Resource");
         humResFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         humResFrame.setSize(600,400);
         humResFrame.setLocationRelativeTo(null);
 
+        //the following are elements of the display
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("Please enter the Humanitarian Resource information");
         JButton submit = new JButton("Submit");
-
         JPanel input = new JPanel(new GridLayout(8,2));
         JLabel name = new JLabel("Humanitarian Resource Name");
         JLabel address = new JLabel("Address");
@@ -333,6 +431,7 @@ public class CreateWindow {
         JLabel desc = new JLabel("Description");
         JLabel hours = new JLabel("Hours Open");
 
+        //the following are text fields the user will enter info into
         JTextField hrName = new JTextField();
         JTextField hrAddress = new JTextField();
         JTextField hrPhone = new JTextField();
@@ -368,9 +467,12 @@ public class CreateWindow {
 
         panel.add(input, BorderLayout.CENTER);
 
+        //a method for when the user wants to submit their information
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                //a humanitarian resource object used to insert one
                 HumResource hr = new HumResource();
+                //inserts a humanitarian resource. the value returned is the humanitarian resource's id
                 int hrID = hr.insert(hrName.getText(), hrAddress.getText(), hrPhone.getText(), Double.parseDouble(hrLat.getText()),
                        Double.parseDouble(hrLon.getText()), hrType.getText(), hrDesc.getText(), hrHours.getText());
                 humResFrame.dispose();
@@ -384,16 +486,24 @@ public class CreateWindow {
         humResFrame.setVisible(true);
     }
 
+    /**
+     * The display for updating a humanitarian resource
+     * @param hrID the hrid of the resource to be updated
+     * @param resource the resource the user wants to update
+     */
     private static void updateHRFrame(int hrID, String resource){
+        //the frame for the display
         JFrame updateHRFrame = new JFrame("Humanitarian Resource");
         updateHRFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         updateHRFrame.setSize(600,400);
         updateHRFrame.setLocationRelativeTo(null);
 
+        //the following are elements of the display
         JPanel panel = new JPanel(new BorderLayout());
         JLabel label = new JLabel("Please update the Humanitarian Resource information");
         JButton submit = new JButton("Submit");
 
+        //the following are elements of the display
         JPanel input = new JPanel(new GridLayout(8,2));
         JLabel name = new JLabel("Humanitarian Resource Name");
         JLabel address = new JLabel("Address");
@@ -404,9 +514,13 @@ public class CreateWindow {
         JLabel desc = new JLabel("Description");
         JLabel hours = new JLabel("Hours Open");
 
+        //a humanitarian resource object used to get the data currently in the DB
         HumResource humResource = new HumResource();
+        //an array of the current data in the DB for that HR
         String[] results = humResource.displayHRID("HumResource", hrID);
 
+        //The following are elements of the display. results[x] is data that is
+        //stored in the DB for that attribute
         JTextField hrName = new JTextField(results[1]);
         JTextField hrAddress = new JTextField(results[2]);
         JTextField hrPhone = new JTextField(results[3]);
@@ -442,9 +556,12 @@ public class CreateWindow {
 
         panel.add(input, BorderLayout.CENTER);
 
+        //a method to handle when the user wants to update the HR
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
+                //a humanitarian resource object used to update
                 HumResource hr = new HumResource();
+                //update humanitarian resource
                 hr.update(hrID, hrName.getText(), hrAddress.getText(), hrPhone.getText(), Double.parseDouble(hrLat.getText()),
                         Double.parseDouble(hrLon.getText()), hrType.getText(), hrDesc.getText(), hrHours.getText());
                 updateHRFrame.dispose();
@@ -465,14 +582,18 @@ public class CreateWindow {
      * @param resource the type of resource the user wants to act on
      */
     private static void getIdFrame(String operation, String resource){
+        //the frame that is displayed
         JFrame getIdFrame = new JFrame("Humanitarian Resource");
         getIdFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         getIdFrame.setSize(300,200);
         getIdFrame.setLocationRelativeTo(null);
 
+        //the following are elements of the display
         JPanel panel = new JPanel();
         JLabel label = new JLabel("Please select the " + resource + " HRID");
         JButton submit = new JButton("Submit");
+        //a call is made to getIDArray. this returns all the possible ids for a specific resource.
+        //the ids are added to a dropdown menu for the user to select from.
         JComboBox idDisplay = new JComboBox(getIDArray(resource));
 
         panel.setLayout(new BorderLayout());
@@ -480,14 +601,18 @@ public class CreateWindow {
         panel.add(idDisplay, BorderLayout.CENTER);
         panel.add(submit, BorderLayout.SOUTH);
 
+        //a method for when the user has selected the id
         submit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent ae) {
                 getIdFrame.dispose();
+                //gets the id the user selected
                 int hrID = Integer.parseInt(idDisplay.getSelectedItem().toString());
                 if(operation.equals("Update")){
+                    //go to the update frame
                     updateHRFrame(hrID, resource);
                 }
                 else {
+                    //go to the delete frame
                     newWindow(hrID, operation, resource);
                 }
             }
@@ -498,17 +623,30 @@ public class CreateWindow {
 
     }
 
+    /**
+     * A helper method to get an array of all the ids for a certain resource.
+     * This is useful because it is used to allow users to only select and id
+     * from the resource that they selected
+     * @param resource the resource the user selected
+     * @return an array of strings with the ids
+     */
     public static String[] getIDArray(String resource) {
         if(resource.equals("Medical Center")){
+            //medical center object used to get the ids
             MedicalCenter medicalCenter = new MedicalCenter();
+            //returns all medical center ids in an array
             return medicalCenter.displayAllHRIDs();
         }
         else if(resource.equals("Water")){
+            //water object used to get the ids
             Water water = new Water();
+            //returns all water ids in an array
             return water.displayAllHRIDs();
         }
         else{
+            //food object used to get the ids
             Food food = new Food();
+            //returns all the food ids in an array
             return food.displayAllHRIDs();
         }
     }
