@@ -25,8 +25,9 @@ public class MedicalCenter extends HumResource {
     public void update(int hrid, int beds, int roomCap, int doctors, int nurses) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("UPDATE " + tableName + " SET NumBeds = " + beds + ", EmergencyRoomCapacity = "
-                + roomCap + ", NumDoctors = " + doctors + ", NumNurses = " + nurses + " WHERE HRID = " + hrid);
+        dao.executeSQLNonQuery("UPDATE " + tableName + " SET NumBeds = " + beds +
+                ", EmergencyRoomCapacity = " + roomCap + ", NumDoctors = " + doctors + ", NumNurses = " + nurses +
+                " WHERE HRID = " + hrid);
         dao.commit();
         dao.disconnect();
     }

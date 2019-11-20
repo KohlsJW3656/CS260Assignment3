@@ -15,8 +15,8 @@ public class Food extends HumResource {
     public void insert(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hrid + ", '" + type + "', " + meals
-                + ", '" + desc + "')");
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hrid + ", '" + type + "', " +
+                meals + ", '" + desc + "')");
         dao.commit();
         dao.disconnect();
     }

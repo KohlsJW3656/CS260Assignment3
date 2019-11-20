@@ -24,9 +24,9 @@ public class HumResource {
         hridProcessed = createHRID();
         dao.connect();
         dao.setAutoCommit(false);
-        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hridProcessed + ", '" + name + "', '" +
-                address + "', '" + phone + "', " + latitude + ", " + longitude + ", '" + type + "', '" + desc + "', '" +
-                hours + "')");
+        dao.executeSQLNonQuery("INSERT INTO " + tableName + " VALUES (" + hridProcessed + ", '" + name +
+                "', '" + address + "', '" + phone + "', " + latitude + ", " + longitude + ", '" + type + "', '" + desc
+                + "', '" + hours + "')");
         dao.commit();
         dao.disconnect();
         return hridProcessed;
