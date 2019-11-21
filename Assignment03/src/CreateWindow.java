@@ -129,7 +129,7 @@ public class CreateWindow {
                 //a water object that is used to get the information about a water object
                 Water water = new Water();
                 //an array with the current information for a specific water object in the DB
-                String[] results = water.displayHRID(hrId);
+                String[] results = water.displayData(hrId);
 
                 //the following are elements of the display. results[x] is equal to what is
                 //stored in the database for that element
@@ -221,7 +221,7 @@ public class CreateWindow {
                 Food food = new Food();
                 //an array that holds the data that is in the DB for the food object
                 //that the user wants to update
-                String[] results = food.displayHRID(hrId);
+                String[] results = food.displayData(hrId);
 
                 //the following are elements of the display. results[x] is what is currently
                 //in the DB for that food object
@@ -323,7 +323,7 @@ public class CreateWindow {
                 MedicalCenter medicalCenter = new MedicalCenter();
                 //an array containing the information that is currently in the DB for
                 //the medical center the user wants to update
-                String[] results = medicalCenter.displayHRID(hrId);
+                String[] results = medicalCenter.displayData(hrId);
 
                 //elements that the user enters information into. results[x] is what is
                 //currently stored in the DB
@@ -534,7 +534,7 @@ public class CreateWindow {
         //a humanitarian resource object used to get the data currently in the DB
         HumResource humResource = new HumResource();
         //an array of the current data in the DB for that HR
-        String[] results = humResource.displayHRID("HumResource", hrID);
+        String[] results = humResource.displayData("HumResource", hrID);
 
         //The following are elements of the display. results[x] is data that is
         //stored in the DB for that attribute

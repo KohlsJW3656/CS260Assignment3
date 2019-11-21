@@ -3,15 +3,22 @@
  *
  * Create by Jonas W. Kohls 11 Nov 2019
  */
-
 public class Food extends HumResource {
 
-    //Food Constructor
+    /**
+     * Food Constructor
+     */
     public Food() {
         tableName = "FOOD";
     }
 
-    //Method that inserts parameters into the Food table
+    /**
+     * Method that inserts parameters into the Food table
+     * @param hrid int representing the overall humanitarian resource id number
+     * @param type String representing the type of food
+     * @param meals int representing the number of meals available
+     * @param desc String representing a further description
+     */
     public void insert(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
@@ -21,7 +28,13 @@ public class Food extends HumResource {
         dao.disconnect();
     }
 
-    //Method that updates the data of an HRID by using the parameters given
+    /**
+     * Method that updates the data of an HRID by using the parameters given
+     * @param hrid int representing the overall humanitarian resource id number
+     * @param type String representing the type of food
+     * @param meals int representing the number of meals available
+     * @param desc String representing a further description
+     */
     public void update(int hrid, String type, int meals, String desc) {
         dao.connect();
         dao.setAutoCommit(false);
@@ -31,19 +44,28 @@ public class Food extends HumResource {
         dao.disconnect();
     }
 
-    //Method that calls HumResource delete() method and passes in the table name parameter
+    /**
+     * Method that calls parent method deletes all data with a specific HRID in
+     * HumResource table, and a table in a parameter
+     * @param hrid int representing the overall humanitarian resource id number
+     */
     public void delete(int hrid) {
         delete(tableName, hrid);
     }
 
-    //Method that calls HumResource displayHRID() method, passes in the table name parameter
-    // and returns a String array of all data with a specific HRID from a table
-    public String[] displayHRID(int hrid) {
-        return displayHRID(tableName, hrid);
+    /**
+     * Method that calls parent method that grabs all data with a specific HRID
+     * @param hrid int representing the overall humanitarian resource id number to be grabbed
+     * @return String array of all data with specific HRID
+     */
+    public String[] displayData(int hrid) {
+        return displayData(tableName, hrid);
     }
 
-    //Method that calls HumResource displayAllHRIDs() method, passes in the table name parameter,
-    // and returns a string array of all HRIDs in a specific table
+    /**
+     * Method that calls parent method that grabs all HRIDs from a specific table
+     * @return String array of all HRIDs from a specific table
+     */
     public String[] displayAllHRIDs() {
         return displayAllHRIDs(tableName);
     }
